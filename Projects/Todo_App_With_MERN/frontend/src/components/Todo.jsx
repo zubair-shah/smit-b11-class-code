@@ -32,8 +32,11 @@ const Todo = () => {
     if (!title.trim()) return;
     const res = await axios.post(`${API_URL}/create-todo`, { title, completed: false });
     console.log('res',res)
-    setTodos([...todos, res.data]);
     setTitle("");
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+    // setTodos([...todos, res.data]);
   };
 
   const toggleTodo = async (id, completed) => {
@@ -42,8 +45,11 @@ const Todo = () => {
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`${API_URL}/${id}`);
-    setTodos(todos.filter(todo => todo._id !== id));
+   let deletedTodo =  await axios.delete(`${API_URL}/delete-todo${id}`);
+    console.log("deletedTodo", deletedTodo)
+    if(deletedTodo.data.status == true){
+      setTodos(todos.filter(todo => todo._id !== id));
+    }
   };
 
   useEffect(() => {
