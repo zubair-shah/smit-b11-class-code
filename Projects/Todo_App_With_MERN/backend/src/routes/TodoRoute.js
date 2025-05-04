@@ -6,7 +6,7 @@ router.post('/create-todo',createTodo)
 router.get('/get-allTodo',getAllTodo)
 router.delete('/delete-todo:id',deleteTodo)
 router.put('/update-todo:id',updateTodo)
-router.patch('/update-todo:id',updateTodo)
+router.patch('/toggle-todo:id', updateTodo)
 
 
   module.exports = router;

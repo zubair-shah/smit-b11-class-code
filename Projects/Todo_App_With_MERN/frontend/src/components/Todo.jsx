@@ -23,14 +23,14 @@ const Todo = () => {
   const [title, setTitle] = useState("");
 
   const fetchTodos = async () => {
-    const res = await axios.get(`${API_URL}/get-allTodo`);
+    const res = await axios.get(`${API_URL}/todo/get-allTodo`);
     console.log('res',res)
     setTodos(res.data.data);
   };
 
   const addTodo = async () => {
     if (!title.trim()) return;
-    const res = await axios.post(`${API_URL}/create-todo`, { title, completed: false });
+    const res = await axios.post(`${API_URL}/todo/create-todo`, { title, completed: false });
     console.log('res',res)
     setTitle("");
     setTimeout(() => {
@@ -40,12 +40,16 @@ const Todo = () => {
   };
 
   const toggleTodo = async (id, completed) => {
-    const res = await axios.patch(`${API_URL}/${id}`, { completed: !completed });
+    const res = await axios.patch(`${API_URL}/todo/toggle-todo${id}`, { completed: !completed });
     setTodos(todos.map(todo => (todo._id === id ? res.data : todo)));
+    setTitle("");
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   const deleteTodo = async (id) => {
-   let deletedTodo =  await axios.delete(`${API_URL}/delete-todo${id}`);
+    let deletedTodo = await axios.delete(`${API_URL}/todo/delete-todo${id}`);
     console.log("deletedTodo", deletedTodo)
     if(deletedTodo.data.status == true){
       setTodos(todos.filter(todo => todo._id !== id));
