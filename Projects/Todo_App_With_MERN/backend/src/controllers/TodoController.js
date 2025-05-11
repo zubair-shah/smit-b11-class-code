@@ -2,16 +2,20 @@ const Todo = require("../models/TodoSchema");
 
 const createTodo = async (req, res) => {
   let { title, completed } = req.body;
+  let userId = req.userId;
+  console.log("userID", userId);
   if (!title && !completed) {
     res.status(400).json({ message: "Title and Completed is Required" });
   }
   console.log(title, completed);
-  const newTodo = await Todo.create({ title, completed });
+  const newTodo = await Todo.create({ title, completed, userId });
 
   res.status(200).json({ message: "todo added successfully", data: newTodo });
 };
 const getAllTodo = async (req, res) => {
-  const todos = await Todo.find();
+  console.log("userId asd", req.userId);
+  const todos = await Todo.find({ userId: req.userId });
+  console.log("todo", todos);
   // res.status(200).json(todo)
   res.status(200).json({
     message: "data get successfully",
