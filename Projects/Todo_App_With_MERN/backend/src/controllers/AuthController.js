@@ -3,12 +3,18 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const createUser = async (req, res) => {
   let { name, email, password } = req.body;
-  console.log("name".name, email, password);
+  console.log("name", name, email, password);
   if (name === undefined || !email || !password) {
     return res
       .status(400)
       .json({ message: "Name,Email and Password is required" });
   }
+  const checkUser = await User.findOne({ email });
+
+  if (checkUser !== null) {
+    return res.status(400).json({ message: "User Already Exist!" });
+  }
+  console.log("checkUser", checkUser);
 
   try {
     const hashPassword = await bcrypt.hash(password, 10);

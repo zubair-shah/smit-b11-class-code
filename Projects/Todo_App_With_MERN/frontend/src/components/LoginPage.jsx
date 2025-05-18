@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../utils/axiosIntercepter";
 import {
   Box,
   TextField,
@@ -28,7 +28,7 @@ const LoginPage = () => {
 
   const handleClick = async () => {
     try {
-      const response = await axios.post("http://localhost:4001/auth/login", {
+      const response = await axios.post("/auth/login", {
         email,
         password,
       });
@@ -36,9 +36,9 @@ const LoginPage = () => {
       if (response.data) {
         login(response.data);
       }
-       navigate("/home");
+      navigate("/home");
     } catch (error) {}
-   
+
     console.log("Button clicked");
   };
 
@@ -87,6 +87,7 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <a href="/signup">Don't Have an Account?</a>
             <Button
               type="submit"
               fullWidth

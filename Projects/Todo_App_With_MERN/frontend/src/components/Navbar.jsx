@@ -18,7 +18,7 @@ const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard"];
 
 function ResponsiveAppBar() {
-  const { logout } = useAuth();
+  const { logout, auth } = useAuth();
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -43,6 +43,8 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  console.log("auth", auth);
 
   return (
     <AppBar position="static">
@@ -118,7 +120,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            {auth?.user?.name}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -135,6 +137,7 @@ function ResponsiveAppBar() {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {auth?.user?.name}
               </IconButton>
             </Tooltip>
             <Menu

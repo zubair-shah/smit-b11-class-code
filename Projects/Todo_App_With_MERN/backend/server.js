@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(cors("*"));
 mongoose
-  .connect("mongodb://localhost:27017/MERN_APP")
+  .connect("mongodb://localhost:27017/Pet_App")
   // .connect(
   //   "mongodb+srv://zubairsaylani:hGo9Cx1NLMvsamrT@cluster0.9yt3l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/MERN_APP"
   // )

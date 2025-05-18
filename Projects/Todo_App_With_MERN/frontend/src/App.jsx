@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginPage from "./components/LoginPage";
+import SignUpPage from "./components/SignUp";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./context/AuthContext";
 import ResponsiveAppBar from "./components/Navbar";
@@ -15,6 +16,7 @@ const App = () => {
             <ResponsiveAppBar />
             <Routes>
               <Route path="/" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
               <Route path="/home" element={<Home />} />
             </Routes>
           </BrowserRouter>
