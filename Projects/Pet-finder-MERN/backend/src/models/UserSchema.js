@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
-const PetfinderUser = mongoose.model("User", userSchema);
 const User = mongoose.model("User", userSchema);
 
-module.exports = {User};
+module.exports = User;
