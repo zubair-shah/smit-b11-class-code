@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
+import React, { useState } from "react";
 import {
   AppBar,
   Box,
@@ -16,29 +16,29 @@ import {
   Badge,
   styled,
   alpha,
-} from "@mui/material"
-import { useNavigate } from "react-router-dom"
-import { useAuth } from "../../context/AuthContext"
-import { keyframes } from "@emotion/react"
-import PetsIcon from "@mui/icons-material/Pets"
-import MenuIcon from "@mui/icons-material/Menu"
-import NotificationsIcon from "@mui/icons-material/Notifications"
-import CartIcon from "./CartIcon"
-import CartDrawer from "./CartDrawer"
-import LoginDialog from "./LoginDialog"
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { keyframes } from "@emotion/react";
+import PetsIcon from "@mui/icons-material/Pets";
+import MenuIcon from "@mui/icons-material/Menu";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import CartIcon from "./CartIcon";
+import CartDrawer from "./CartDrawer";
+import LoginDialog from "./LoginDialog";
 
 // Your existing animations and styled components
 const floatAnimation = keyframes`
   0% { transform: translateY(0px); }
   50% { transform: translateY(-5px); }
   100% { transform: translateY(0px); }
-`
+`;
 
 const gradientAnimation = keyframes`
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-`
+`;
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   background: `linear-gradient(135deg, 
@@ -56,7 +56,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
     backgroundSize: "200% 200%",
     boxShadow: `0 2px 15px ${alpha(theme.palette.primary.dark, 0.1)}`,
   },
-}))
+}));
 
 const LogoText = styled(Typography)(({ theme }) => ({
   background: `linear-gradient(45deg, 
@@ -75,7 +75,7 @@ const LogoText = styled(Typography)(({ theme }) => ({
     transform: "scale(1.05)",
     textShadow: `0 4px 8px ${alpha(theme.palette.primary.dark, 0.4)}`,
   },
-}))
+}));
 
 const NavButton = styled(Button)(({ theme }) => ({
   margin: theme.spacing(0, 1.5),
@@ -99,7 +99,7 @@ const NavButton = styled(Button)(({ theme }) => ({
   "&:hover": {
     transform: "translateY(-2px)",
   },
-}))
+}));
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -110,66 +110,66 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     background: theme.palette.secondary.main,
     color: theme.palette.common.white,
   },
-}))
+}));
 
-const pages = ["Home", "Adopt", "Services", "About"]
-const settings = ["Profile", "Dashboard", "Favorites", "Messages"]
+const pages = ["Home", "Adopt", "Services", "About"];
+const settings = ["Profile", "Dashboard", "Favorites", "Messages"];
 
 function Header_2() {
-  const { logout, auth } = useAuth()
-  const navigate = useNavigate()
-  const [anchorElNav, setAnchorElNav] = useState(null)
-  const [anchorElUser, setAnchorElUser] = useState(null)
-  const [scrolled, setScrolled] = useState(false)
-  const [notificationCount] = useState(3)
-  const [cartOpen, setCartOpen] = useState(false)
-  const [loginOpen, setLoginOpen] = useState(false)
+  const { logout, auth } = useAuth();
+  const navigate = useNavigate();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [notificationCount] = useState(3);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
-        setScrolled(true)
+        setScrolled(true);
       } else {
-        setScrolled(false)
+        setScrolled(false);
       }
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget)
-  }
+    setAnchorElNav(event.currentTarget);
+  };
 
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
-  }
+    setAnchorElUser(event.currentTarget);
+  };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
+    setAnchorElNav(null);
+  };
 
   const handleLogout = () => {
-    logout()
-    navigate("/login")
-    setAnchorElUser(null)
-  }
+    logout();
+    navigate("/login");
+    setAnchorElUser(null);
+  };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
+    setAnchorElUser(null);
+  };
 
   const handleCartClick = () => {
     if (!auth?.user) {
-      setLoginOpen(true)
-      return
+      setLoginOpen(true);
+      return;
     }
-    setCartOpen(true)
-  }
+    setCartOpen(true);
+  };
 
   const handleLoginRequired = () => {
-    setLoginOpen(true)
-  }
+    setLoginOpen(true);
+  };
 
   return (
     <>
@@ -330,7 +330,14 @@ function Header_2() {
             </Box>
 
             {/* User Menu with Cart and Notifications */}
-            <Box sx={{ flexGrow: 0, display: "flex", alignItems: "center", gap: 2 }}>
+            <Box
+              sx={{
+                flexGrow: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
               {/* Cart Icon */}
               <CartIcon onClick={handleCartClick} />
 
@@ -348,7 +355,10 @@ function Header_2() {
                     },
                   }}
                 >
-                  <StyledBadge badgeContent={notificationCount} color="secondary">
+                  <StyledBadge
+                    badgeContent={notificationCount}
+                    color="secondary"
+                  >
                     <NotificationsIcon />
                   </StyledBadge>
                 </IconButton>
@@ -473,12 +483,16 @@ function Header_2() {
       </StyledAppBar>
 
       {/* Cart Drawer */}
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} onLoginRequired={handleLoginRequired} />
+      <CartDrawer
+        open={cartOpen}
+        onClose={() => setCartOpen(false)}
+        onLoginRequired={handleLoginRequired}
+      />
 
       {/* Login Dialog */}
       <LoginDialog open={loginOpen} onClose={() => setLoginOpen(false)} />
     </>
-  )
+  );
 }
 
-export default Header_2
+export default Header_2;

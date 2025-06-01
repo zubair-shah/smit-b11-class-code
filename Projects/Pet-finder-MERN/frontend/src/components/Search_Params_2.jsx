@@ -14,42 +14,39 @@ import {
   styled,
   ThemeProvider,
   createTheme,
-  CssBaseline
+  CssBaseline,
 } from "@mui/material";
 import useBreedList from "../hooks/useBreedList";
 import Results_2 from "./Results_2";
 import fetchSearch from "../helper/fetchSearch";
 import { apiUrl } from "../config/apiUrl";
 import AdoptedPetContext from "../../context/AdoptedPetContext";
-import PetsIcon from '@mui/icons-material/Pets';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SearchIcon from '@mui/icons-material/Search';
-import NaturePeopleIcon from '@mui/icons-material/NaturePeople';
+import PetsIcon from "@mui/icons-material/Pets";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import SearchIcon from "@mui/icons-material/Search";
+import NaturePeopleIcon from "@mui/icons-material/NaturePeople";
 
 // Custom theme
 const petAdoptionTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#4a6fa5',  // Deep blue
+      main: "#4a6fa5", // Deep blue
     },
     secondary: {
-      main: '#ff9a76',  // Salmon
+      main: "#ff9a76", // Salmon
     },
     background: {
-      default: '#f8f9fa',  // Light gray
-      paper: '#ffffff',
+      default: "#f8f9fa", // Light gray
+      paper: "#ffffff",
     },
     text: {
-      primary: '#2d3436',  // Dark gray
-      secondary: '#636e72',  // Medium gray
+      primary: "#2d3436", // Dark gray
+      secondary: "#636e72", // Medium gray
     },
   },
   typography: {
-    fontFamily: [
-      '"Poppins"',
-      'sans-serif'
-    ].join(','),
+    fontFamily: ['"Poppins"', "sans-serif"].join(","),
     h4: {
       fontWeight: 600,
     },
@@ -57,7 +54,7 @@ const petAdoptionTheme = createTheme({
       fontWeight: 500,
     },
     button: {
-      textTransform: 'none',
+      textTransform: "none",
       fontWeight: 500,
     },
   },
@@ -68,7 +65,7 @@ const petAdoptionTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          padding: '8px 20px',
+          padding: "8px 20px",
         },
       },
     },
@@ -81,7 +78,7 @@ const ANIMALS = ["Select an Option", "bird", "cat", "dog", "rabbit", "reptile"];
 const SearchForm = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   borderRadius: theme.shape.borderRadius * 2,
-  boxShadow: '0 8px 32px rgba(69, 111, 165, 0.1)',
+  boxShadow: "0 8px 32px rgba(69, 111, 165, 0.1)",
   background: theme.palette.background.paper,
   marginBottom: theme.spacing(4),
   border: `1px solid ${theme.palette.divider}`,
@@ -89,15 +86,15 @@ const SearchForm = styled(Paper)(({ theme }) => ({
 
 const GradientButton = styled(Button)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-  color: 'white',
-  padding: '12px 32px',
+  color: "white",
+  padding: "12px 32px",
   fontWeight: 600,
-  borderRadius: '50px',
-  boxShadow: '0 4px 15px rgba(74, 111, 165, 0.2)',
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 6px 20px rgba(74, 111, 165, 0.3)',
+  borderRadius: "50px",
+  boxShadow: "0 4px 15px rgba(74, 111, 165, 0.2)",
+  transition: "all 0.3s ease",
+  "&:hover": {
+    transform: "translateY(-2px)",
+    boxShadow: "0 6px 20px rgba(74, 111, 165, 0.3)",
     background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`,
   },
 }));
@@ -107,7 +104,7 @@ const HeroSection = styled(Box)(({ theme }) => ({
   padding: theme.spacing(6, 0),
   marginBottom: theme.spacing(4),
   borderRadius: theme.shape.borderRadius,
-  textAlign: 'center',
+  textAlign: "center",
 }));
 
 function SearchParams_2() {
@@ -133,7 +130,7 @@ function SearchParams_2() {
     const obj = {
       animal: formData.get("animal") ?? "",
       location: formData.get("location") ?? "",
-      breed: formData.get("breed") ?? ""
+      breed: formData.get("breed") ?? "",
     };
     setRequestParams(obj);
   };
@@ -143,27 +140,43 @@ function SearchParams_2() {
       <CssBaseline />
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <HeroSection>
-          <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, color: 'primary.contrastText' }}>
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{ fontWeight: 700, color: "primary.contrastText" }}
+          >
             Find Your Perfect Pet Companion
           </Typography>
-          <Typography variant="h6" sx={{ color: 'primary.contrastText', opacity: 0.9 }}>
+          <Typography
+            variant="h6"
+            sx={{ color: "primary.contrastText", opacity: 0.9 }}
+          >
             Thousands of pets are waiting for their forever homes
           </Typography>
-          <NaturePeopleIcon sx={{ fontSize: 60, color: 'primary.contrastText', mt: 2 }} />
+          <NaturePeopleIcon
+            sx={{ fontSize: 60, color: "primary.contrastText", mt: 2 }}
+          />
         </HeroSection>
 
         <Grid container spacing={4}>
           {/* Adopted Pet Display */}
           {adoptedPet && (
             <Grid item xs={12}>
-              <Paper elevation={0} sx={{
-                p: 3,
-                borderRadius: petAdoptionTheme.shape.borderRadius * 2,
-                background: `linear-gradient(135deg, ${petAdoptionTheme.palette.secondary.light} 0%, ${petAdoptionTheme.palette.background.paper} 100%)`,
-                textAlign: 'center',
-                border: `1px solid ${petAdoptionTheme.palette.divider}`
-              }}>
-                <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 3,
+                  borderRadius: petAdoptionTheme.shape.borderRadius * 2,
+                  background: `linear-gradient(135deg, ${petAdoptionTheme.palette.secondary.light} 0%, ${petAdoptionTheme.palette.background.paper} 100%)`,
+                  textAlign: "center",
+                  border: `1px solid ${petAdoptionTheme.palette.divider}`,
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  sx={{ fontWeight: "bold" }}
+                >
                   Your Adopted Pet
                 </Typography>
                 <Avatar
@@ -172,8 +185,8 @@ function SearchParams_2() {
                   sx={{
                     width: 120,
                     height: 120,
-                    margin: '0 auto',
-                    border: `3px solid ${petAdoptionTheme.palette.primary.main}`
+                    margin: "0 auto",
+                    border: `3px solid ${petAdoptionTheme.palette.primary.main}`,
                   }}
                 />
                 <Typography variant="h6" sx={{ mt: 2, fontWeight: 600 }}>
@@ -199,11 +212,13 @@ function SearchParams_2() {
                       placeholder="Enter location"
                       variant="outlined"
                       InputProps={{
-                        startAdornment: <LocationOnIcon color="action" sx={{ mr: 1 }} />,
+                        startAdornment: (
+                          <LocationOnIcon color="action" sx={{ mr: 1 }} />
+                        ),
                       }}
                       sx={{
-                        '& .MuiOutlinedInput-root': {
-                          borderRadius: '50px',
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "50px",
                         },
                       }}
                     />
@@ -220,11 +235,13 @@ function SearchParams_2() {
                       onBlur={handleAnimalChange}
                       variant="outlined"
                       InputProps={{
-                        startAdornment: <PetsIcon color="action" sx={{ mr: 1 }} />,
+                        startAdornment: (
+                          <PetsIcon color="action" sx={{ mr: 1 }} />
+                        ),
                       }}
                       sx={{
-                        '& .MuiOutlinedInput-root': {
-                          borderRadius: '50px',
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "50px",
                         },
                       }}
                     >
@@ -240,13 +257,15 @@ function SearchParams_2() {
                     <TextField
                       select
                       fullWidth
-                      label={status === "loading" ? "Loading breeds..." : "Breed"}
+                      label={
+                        status === "loading" ? "Loading breeds..." : "Breed"
+                      }
                       name="breed"
                       disabled={!breeds.length}
                       variant="outlined"
                       sx={{
-                        '& .MuiOutlinedInput-root': {
-                          borderRadius: '50px',
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "50px",
                         },
                       }}
                     >
@@ -258,7 +277,7 @@ function SearchParams_2() {
                     </TextField>
                   </Grid>
 
-                  <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                  <Grid item xs={12} sx={{ textAlign: "center" }}>
                     <GradientButton
                       type="submit"
                       variant="contained"
@@ -281,7 +300,11 @@ function SearchParams_2() {
           {/* Results Section */}
           <Grid item xs={12}>
             <Box sx={{ mb: 4 }}>
-              <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+              <Typography
+                variant="h4"
+                gutterBottom
+                sx={{ fontWeight: "bold", mb: 3 }}
+              >
                 Available Pets
               </Typography>
               <Results_2 pets={pets} />

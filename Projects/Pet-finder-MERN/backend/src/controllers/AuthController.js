@@ -2,7 +2,6 @@ const User = require("../models/UserSchema");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const createUser = async (req, res) => {
-  
   let { name, email, password } = req.body;
   console.log("name", name, email, password);
   if (name === undefined || !email || !password) {

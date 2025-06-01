@@ -1,12 +1,12 @@
-import SearchParams_2 from "../components/Search_Params_2"
-import Header_2 from "../components/Header_2"
-import Footer from "../components/Footer"
-import { Box, Container, Typography, styled } from "@mui/material"
+import SearchParams_2 from "../components/Search_Params_2";
+import Header_2 from "../components/Header_2";
+import Footer from "../components/Footer";
+import { Box, Container, Typography, styled } from "@mui/material";
 
 const PageContainer = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   paddingTop: theme.spacing(10), // Account for fixed header
-}))
+}));
 
 const HeroTitle = styled(Typography)(({ theme }) => ({
   textAlign: "center",
@@ -24,7 +24,7 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     fontSize: "2rem",
   },
-}))
+}));
 
 function New_Home() {
   return (
@@ -39,7 +39,7 @@ function New_Home() {
 
       <Footer />
     </PageContainer>
-  )
+  );
 }
 
-export default New_Home
+export default New_Home;

@@ -1,10 +1,18 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button, IconButton, Box, CircularProgress, Chip, styled, alpha } from "@mui/material"
-import { Add, Remove, AddShoppingCart } from "@mui/icons-material"
-import { useAuth } from "../../context/AuthContext"
-import { useSnackbar } from "notistack"
+import { useState, useEffect } from "react";
+import {
+  Button,
+  IconButton,
+  Box,
+  CircularProgress,
+  Chip,
+  styled,
+  alpha,
+} from "@mui/material";
+import { Add, Remove, AddShoppingCart } from "@mui/icons-material";
+import { useAuth } from "../../context/AuthContext";
+import { useSnackbar } from "notistack";
 
 // Styled components matching your theme
 const GradientButton = styled(Button)(({ theme }) => ({
@@ -26,7 +34,7 @@ const GradientButton = styled(Button)(({ theme }) => ({
     transform: "none",
     boxShadow: "none",
   },
-}))
+}));
 
 const QuantityContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -36,7 +44,7 @@ const QuantityContainer = styled(Box)(({ theme }) => ({
   borderRadius: "50px",
   background: alpha(theme.palette.primary.main, 0.1),
   border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-}))
+}));
 
 const QuantityButton = styled(IconButton)(({ theme }) => ({
   width: 32,
@@ -51,47 +59,47 @@ const QuantityButton = styled(IconButton)(({ theme }) => ({
     background: theme.palette.grey[300],
     color: theme.palette.grey[500],
   },
-}))
+}));
 
 function CartButton({ petId, petName, petPrice, petImage, onLoginRequired }) {
-  const [quantity, setQuantity] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const { auth } = useAuth()
-  const { enqueueSnackbar } = useSnackbar()
+  const [quantity, setQuantity] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const { auth } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (auth?.user) {
-      fetchCartQuantity()
+      fetchCartQuantity();
     }
-  }, [petId, auth?.user])
+  }, [petId, auth?.user]);
 
   const fetchCartQuantity = async () => {
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
       const response = await fetch(`http://localhost:5000/api/cart/${petId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        setQuantity(data.quantity || 0)
+        const data = await response.json();
+        setQuantity(data.quantity || 0);
       }
     } catch (error) {
-      console.error("Error fetching cart quantity:", error)
+      console.error("Error fetching cart quantity:", error);
     }
-  }
+  };
 
   const addToCart = async () => {
     if (!auth?.user) {
-      onLoginRequired()
-      return
+      onLoginRequired();
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/api/cart/add", {
         method: "POST",
         headers: {
@@ -105,49 +113,52 @@ function CartButton({ petId, petName, petPrice, petImage, onLoginRequired }) {
           petImage,
           quantity: 1,
         }),
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        setQuantity(data.quantity)
+        const data = await response.json();
+        setQuantity(data.quantity);
         enqueueSnackbar(`${petName} added to cart!`, {
           variant: "success",
           anchorOrigin: { vertical: "bottom", horizontal: "right" },
-        })
+        });
       } else {
-        throw new Error("Failed to add to cart")
+        throw new Error("Failed to add to cart");
       }
     } catch (error) {
       enqueueSnackbar("Failed to add item to cart", {
         variant: "error",
         anchorOrigin: { vertical: "bottom", horizontal: "right" },
-      })
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const updateQuantity = async (newQuantity) => {
-    if (!auth?.user) return
+    if (!auth?.user) return;
 
-    setLoading(true)
+    setLoading(true);
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
 
       if (newQuantity === 0) {
-        const response = await fetch(`http://localhost:5000/api/cart/remove/${petId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const response = await fetch(
+          `http://localhost:5000/api/cart/remove/${petId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
-          setQuantity(0)
+          setQuantity(0);
           enqueueSnackbar(`${petName} removed from cart`, {
             variant: "info",
             anchorOrigin: { vertical: "bottom", horizontal: "right" },
-          })
+          });
         }
       } else {
         const response = await fetch("http://localhost:5000/api/cart/update", {
@@ -160,22 +171,22 @@ function CartButton({ petId, petName, petPrice, petImage, onLoginRequired }) {
             petId,
             quantity: newQuantity,
           }),
-        })
+        });
 
         if (response.ok) {
-          const data = await response.json()
-          setQuantity(data.quantity)
+          const data = await response.json();
+          setQuantity(data.quantity);
         }
       }
     } catch (error) {
       enqueueSnackbar("Failed to update cart", {
         variant: "error",
         anchorOrigin: { vertical: "bottom", horizontal: "right" },
-      })
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   if (quantity === 0) {
     return (
@@ -183,16 +194,26 @@ function CartButton({ petId, petName, petPrice, petImage, onLoginRequired }) {
         fullWidth
         onClick={addToCart}
         disabled={loading}
-        startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <AddShoppingCart />}
+        startIcon={
+          loading ? (
+            <CircularProgress size={16} color="inherit" />
+          ) : (
+            <AddShoppingCart />
+          )
+        }
       >
         {loading ? "Adding..." : "Add to Cart"}
       </GradientButton>
-    )
+    );
   }
 
   return (
     <QuantityContainer>
-      <QuantityButton size="small" onClick={() => updateQuantity(quantity - 1)} disabled={loading}>
+      <QuantityButton
+        size="small"
+        onClick={() => updateQuantity(quantity - 1)}
+        disabled={loading}
+      >
         <Remove fontSize="small" />
       </QuantityButton>
 
@@ -207,11 +228,15 @@ function CartButton({ petId, petName, petPrice, petImage, onLoginRequired }) {
         }}
       />
 
-      <QuantityButton size="small" onClick={() => updateQuantity(quantity + 1)} disabled={loading}>
+      <QuantityButton
+        size="small"
+        onClick={() => updateQuantity(quantity + 1)}
+        disabled={loading}
+      >
         <Add fontSize="small" />
       </QuantityButton>
     </QuantityContainer>
-  )
+  );
 }
 
-export default CartButton
+export default CartButton;

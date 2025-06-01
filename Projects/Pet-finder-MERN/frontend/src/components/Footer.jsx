@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Container,
@@ -10,8 +10,8 @@ import {
   TextField,
   Button,
   useTheme,
-  styled
-} from '@mui/material';
+  styled,
+} from "@mui/material";
 import {
   Facebook,
   Twitter,
@@ -20,9 +20,9 @@ import {
   Pets,
   Email,
   Phone,
-  LocationOn
-} from '@mui/icons-material';
-import { alpha, keyframes } from '@mui/system';
+  LocationOn,
+} from "@mui/icons-material";
+import { alpha, keyframes } from "@mui/system";
 
 // Floating animation for logo
 const floatAnimation = keyframes`
@@ -50,19 +50,19 @@ const StyledFooter = styled(Box)(({ theme }) => ({
   borderTop: `1px solid ${alpha(theme.palette.common.white, 0.2)}`,
   color: theme.palette.common.white,
   padding: theme.spacing(6, 0),
-  position: 'relative',
-  overflow: 'hidden',
-  '&:before': {
+  position: "relative",
+  overflow: "hidden",
+  "&:before": {
     content: '""',
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    height: '4px',
+    height: "4px",
     background: `linear-gradient(90deg, 
       ${theme.palette.secondary.main}, 
       ${theme.palette.primary.main})`,
-  }
+  },
 }));
 
 // Styled logo text
@@ -78,8 +78,8 @@ const FooterLogoText = styled(Typography)(({ theme }) => ({
   textDecoration: "none",
   fontFamily: '"Montserrat", sans-serif',
   textShadow: `0 2px 4px ${alpha(theme.palette.primary.dark, 0.3)}`,
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
   marginBottom: theme.spacing(2),
 }));
 
@@ -88,36 +88,36 @@ const SocialIcon = styled(IconButton)(({ theme }) => ({
   color: theme.palette.common.white,
   backgroundColor: alpha(theme.palette.common.white, 0.1),
   margin: theme.spacing(0, 1),
-  transition: 'all 0.3s ease',
-  '&:hover': {
+  transition: "all 0.3s ease",
+  "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.2),
-    transform: 'translateY(-3px)',
-  }
+    transform: "translateY(-3px)",
+  },
 }));
 
 // Styled footer link
 const FooterLink = styled(Link)(({ theme }) => ({
   color: alpha(theme.palette.common.white, 0.8),
-  display: 'block',
+  display: "block",
   marginBottom: theme.spacing(1),
-  transition: 'all 0.2s ease',
-  '&:hover': {
+  transition: "all 0.2s ease",
+  "&:hover": {
     color: theme.palette.common.white,
-    transform: 'translateX(5px)',
-    textDecoration: 'none',
-  }
+    transform: "translateX(5px)",
+    textDecoration: "none",
+  },
 }));
 
 // Styled contact item
 const ContactItem = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
   marginBottom: theme.spacing(2),
   color: alpha(theme.palette.common.white, 0.9),
-  '& svg': {
+  "& svg": {
     marginRight: theme.spacing(2),
     color: theme.palette.secondary.light,
-  }
+  },
 }));
 
 function Footer() {
@@ -129,29 +129,42 @@ function Footer() {
         <Grid container spacing={6}>
           {/* Brand Column */}
           <Grid item xs={12} md={4}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Box
+              sx={{ display: "flex", flexDirection: "column", height: "100%" }}
+            >
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
+                  display: "flex",
+                  alignItems: "center",
                   animation: `${floatAnimation} 6s ease-in-out infinite`,
-                  mb: 3
+                  mb: 3,
                 }}
               >
-                <Pets sx={{
-                  fontSize: 40,
-                  mr: 2,
-                  color: theme.palette.secondary.light
-                }} />
-                <FooterLogoText variant="h4">
-                  PETPARADISE
-                </FooterLogoText>
+                <Pets
+                  sx={{
+                    fontSize: 40,
+                    mr: 2,
+                    color: theme.palette.secondary.light,
+                  }}
+                />
+                <FooterLogoText variant="h4">PETPARADISE</FooterLogoText>
               </Box>
-              <Typography variant="body1" sx={{ mb: 3, color: alpha(theme.palette.common.white, 0.8) }}>
-                Connecting loving homes with pets in need since 2015. Our mission is to make pet adoption easy and enjoyable.
+              <Typography
+                variant="body1"
+                sx={{ mb: 3, color: alpha(theme.palette.common.white, 0.8) }}
+              >
+                Connecting loving homes with pets in need since 2015. Our
+                mission is to make pet adoption easy and enjoyable.
               </Typography>
-              <Box sx={{ mt: 'auto' }}>
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: theme.palette.common.white }}>
+              <Box sx={{ mt: "auto" }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    mb: 2,
+                    fontWeight: 600,
+                    color: theme.palette.common.white,
+                  }}
+                >
                   Follow Us
                 </Typography>
                 <Box>
@@ -174,32 +187,61 @@ function Footer() {
 
           {/* Links Column */}
           <Grid item xs={12} md={2}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 600, color: theme.palette.common.white }}>
+            <Typography
+              variant="h6"
+              sx={{ mb: 3, fontWeight: 600, color: theme.palette.common.white }}
+            >
               Quick Links
             </Typography>
-            {['Home', 'About Us', 'Adopt a Pet', 'Success Stories', 'Volunteer', 'Donate'].map(text => (
-              <FooterLink key={text} href="#" underline="none">{text}</FooterLink>
+            {[
+              "Home",
+              "About Us",
+              "Adopt a Pet",
+              "Success Stories",
+              "Volunteer",
+              "Donate",
+            ].map((text) => (
+              <FooterLink key={text} href="#" underline="none">
+                {text}
+              </FooterLink>
             ))}
           </Grid>
 
           {/* Services Column */}
           <Grid item xs={12} md={2}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 600, color: theme.palette.common.white }}>
+            <Typography
+              variant="h6"
+              sx={{ mb: 3, fontWeight: 600, color: theme.palette.common.white }}
+            >
               Services
             </Typography>
-            {['Pet Adoption', 'Veterinary Care', 'Training', 'Grooming', 'Pet Sitting', 'Emergency Care'].map(text => (
-              <FooterLink key={text} href="#" underline="none">{text}</FooterLink>
+            {[
+              "Pet Adoption",
+              "Veterinary Care",
+              "Training",
+              "Grooming",
+              "Pet Sitting",
+              "Emergency Care",
+            ].map((text) => (
+              <FooterLink key={text} href="#" underline="none">
+                {text}
+              </FooterLink>
             ))}
           </Grid>
 
           {/* Contact Column */}
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 600, color: theme.palette.common.white }}>
+            <Typography
+              variant="h6"
+              sx={{ mb: 3, fontWeight: 600, color: theme.palette.common.white }}
+            >
               Contact Us
             </Typography>
             <ContactItem>
               <LocationOn />
-              <Typography>123 Pet Paradise Lane, Animal City, AC 12345</Typography>
+              <Typography>
+                123 Pet Paradise Lane, Animal City, AC 12345
+              </Typography>
             </ContactItem>
             <ContactItem>
               <Phone />
@@ -210,20 +252,25 @@ function Footer() {
               <Typography>info@petparadise.com</Typography>
             </ContactItem>
 
-            <Box sx={{
-              mt: 4,
-              p: 3,
-              backgroundColor: alpha(theme.palette.common.black, 0.2),
-              borderRadius: theme.shape.borderRadius,
-              backdropFilter: 'blur(5px)'
-            }}>
+            <Box
+              sx={{
+                mt: 4,
+                p: 3,
+                backgroundColor: alpha(theme.palette.common.black, 0.2),
+                borderRadius: theme.shape.borderRadius,
+                backdropFilter: "blur(5px)",
+              }}
+            >
               <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 600 }}>
                 Newsletter
               </Typography>
-              <Typography variant="body2" sx={{ mb: 2, color: alpha(theme.palette.common.white, 0.8) }}>
+              <Typography
+                variant="body2"
+                sx={{ mb: 2, color: alpha(theme.palette.common.white, 0.8) }}
+              >
                 Subscribe to get updates on new pets and special offers.
               </Typography>
-              <Box component="form" sx={{ display: 'flex' }}>
+              <Box component="form" sx={{ display: "flex" }}>
                 <TextField
                   placeholder="Your email"
                   variant="outlined"
@@ -231,20 +278,20 @@ function Footer() {
                   fullWidth
                   sx={{
                     mr: 1,
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': {
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
                         borderColor: alpha(theme.palette.common.white, 0.3),
                       },
-                      '&:hover fieldset': {
+                      "&:hover fieldset": {
                         borderColor: theme.palette.common.white,
                       },
-                      '&.Mui-focused fieldset': {
+                      "&.Mui-focused fieldset": {
                         borderColor: theme.palette.common.white,
                       },
                       backgroundColor: alpha(theme.palette.common.white, 0.1),
                       color: theme.palette.common.white,
                     },
-                    '& input': {
+                    "& input": {
                       color: theme.palette.common.white,
                     },
                   }}
@@ -255,9 +302,9 @@ function Footer() {
                     background: `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
                     color: theme.palette.common.white,
                     fontWeight: 600,
-                    '&:hover': {
+                    "&:hover": {
                       background: `linear-gradient(135deg, ${theme.palette.secondary.dark}, ${theme.palette.primary.dark})`,
-                    }
+                    },
                   }}
                 >
                   Subscribe
@@ -267,18 +314,25 @@ function Footer() {
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: 5, borderColor: alpha(theme.palette.common.white, 0.2) }} />
+        <Divider
+          sx={{ my: 5, borderColor: alpha(theme.palette.common.white, 0.2) }}
+        />
 
-        <Box sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Typography variant="body2" sx={{
-            color: alpha(theme.palette.common.white, 0.7),
-            mb: { xs: 2, md: 0 }
-          }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              color: alpha(theme.palette.common.white, 0.7),
+              mb: { xs: 2, md: 0 },
+            }}
+          >
             © {new Date().getFullYear()} PetParadise. All rights reserved.
           </Typography>
         </Box>
