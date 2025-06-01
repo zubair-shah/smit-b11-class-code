@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import {
   Drawer,
   Box,
@@ -14,10 +14,17 @@ import {
   CircularProgress,
   styled,
   alpha,
-} from "@mui/material"
-import { ShoppingCart, Close, Add, Remove, Delete, ShoppingBag } from "@mui/icons-material"
-import { useAuth } from "../../context/AuthContext"
-import { useSnackbar } from "notistack"
+} from "@mui/material";
+import {
+  ShoppingCart,
+  Close,
+  Add,
+  Remove,
+  Delete,
+  ShoppingBag,
+} from "@mui/icons-material";
+import { useAuth } from "../context/AuthContext";
+import { useSnackbar } from "notistack";
 
 // Styled components
 const CartHeader = styled(Box)(({ theme }) => ({
@@ -27,7 +34,7 @@ const CartHeader = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-}))
+}));
 
 const CartItem = styled(Card)(({ theme }) => ({
   margin: theme.spacing(1, 0),
@@ -38,7 +45,7 @@ const CartItem = styled(Card)(({ theme }) => ({
     transform: "translateY(-2px)",
     boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
   },
-}))
+}));
 
 const QuantityControls = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -47,7 +54,7 @@ const QuantityControls = styled(Box)(({ theme }) => ({
   background: alpha(theme.palette.primary.main, 0.1),
   borderRadius: "20px",
   padding: theme.spacing(0.5),
-}))
+}));
 
 const CheckoutButton = styled(Button)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
@@ -61,56 +68,59 @@ const CheckoutButton = styled(Button)(({ theme }) => ({
     transform: "translateY(-2px)",
     boxShadow: "0 6px 20px rgba(255, 154, 118, 0.4)",
   },
-}))
+}));
 
 function CartDrawer({ open, onClose, onLoginRequired }) {
-  const [cartItems, setCartItems] = useState([])
-  const [loading, setLoading] = useState(false)
-  const { auth } = useAuth()
-  const { enqueueSnackbar } = useSnackbar()
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { auth } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (auth?.user && open) {
-      fetchCartItems()
+      fetchCartItems();
     }
-  }, [auth?.user, open])
+  }, [auth?.user, open]);
 
   const fetchCartItems = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/api/cart", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        setCartItems(data.items || [])
+        const data = await response.json();
+        setCartItems(data.items || []);
       }
     } catch (error) {
-      console.error("Error fetching cart:", error)
+      console.error("Error fetching cart:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const updateQuantity = async (petId, newQuantity) => {
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
 
       if (newQuantity === 0) {
-        const response = await fetch(`http://localhost:5000/api/cart/remove/${petId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const response = await fetch(
+          `http://localhost:5000/api/cart/remove/${petId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
-          setCartItems((items) => items.filter((item) => item.petId !== petId))
-          enqueueSnackbar("Item removed from cart", { variant: "info" })
+          setCartItems((items) => items.filter((item) => item.petId !== petId));
+          enqueueSnackbar("Item removed from cart", { variant: "info" });
         }
       } else {
         const response = await fetch("http://localhost:5000/api/cart/update", {
@@ -123,47 +133,52 @@ function CartDrawer({ open, onClose, onLoginRequired }) {
             petId,
             quantity: newQuantity,
           }),
-        })
+        });
 
         if (response.ok) {
           setCartItems((items) =>
-            items.map((item) => (item.petId === petId ? { ...item, quantity: newQuantity } : item)),
-          )
+            items.map((item) =>
+              item.petId === petId ? { ...item, quantity: newQuantity } : item
+            )
+          );
         }
       }
     } catch (error) {
-      enqueueSnackbar("Failed to update cart", { variant: "error" })
+      enqueueSnackbar("Failed to update cart", { variant: "error" });
     }
-  }
+  };
 
   const clearCart = async () => {
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/api/cart/clear", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       if (response.ok) {
-        setCartItems([])
-        enqueueSnackbar("Cart cleared", { variant: "success" })
+        setCartItems([]);
+        enqueueSnackbar("Cart cleared", { variant: "success" });
       }
     } catch (error) {
-      enqueueSnackbar("Failed to clear cart", { variant: "error" })
+      enqueueSnackbar("Failed to clear cart", { variant: "error" });
     }
-  }
+  };
 
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0)
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.petPrice * item.quantity, 0)
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.petPrice * item.quantity,
+    0
+  );
 
   const handleCartClick = () => {
     if (!auth?.user) {
-      onLoginRequired()
-      return
+      onLoginRequired();
+      return;
     }
-  }
+  };
 
   return (
     <Drawer
@@ -200,7 +215,12 @@ function CartDrawer({ open, onClose, onLoginRequired }) {
 
       <Box sx={{ flex: 1, overflow: "auto", p: 2 }}>
         {loading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="200px"
+          >
             <CircularProgress />
           </Box>
         ) : cartItems.length === 0 ? (
@@ -232,11 +252,18 @@ function CartDrawer({ open, onClose, onLoginRequired }) {
                     ${item.petPrice.toFixed(2)} each
                   </Typography>
 
-                  <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
+                  <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mt={1}
+                  >
                     <QuantityControls>
                       <IconButton
                         size="small"
-                        onClick={() => updateQuantity(item.petId, item.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(item.petId, item.quantity - 1)
+                        }
                         sx={{
                           width: 28,
                           height: 28,
@@ -248,13 +275,20 @@ function CartDrawer({ open, onClose, onLoginRequired }) {
                         <Remove fontSize="small" />
                       </IconButton>
 
-                      <Typography variant="body2" fontWeight="bold" minWidth="20px" textAlign="center">
+                      <Typography
+                        variant="body2"
+                        fontWeight="bold"
+                        minWidth="20px"
+                        textAlign="center"
+                      >
                         {item.quantity}
                       </Typography>
 
                       <IconButton
                         size="small"
-                        onClick={() => updateQuantity(item.petId, item.quantity + 1)}
+                        onClick={() =>
+                          updateQuantity(item.petId, item.quantity + 1)
+                        }
                         sx={{
                           width: 28,
                           height: 28,
@@ -267,7 +301,10 @@ function CartDrawer({ open, onClose, onLoginRequired }) {
                       </IconButton>
                     </QuantityControls>
 
-                    <IconButton onClick={() => updateQuantity(item.petId, 0)} sx={{ color: "error.main" }}>
+                    <IconButton
+                      onClick={() => updateQuantity(item.petId, 0)}
+                      sx={{ color: "error.main" }}
+                    >
                       <Delete />
                     </IconButton>
                   </Box>
@@ -280,7 +317,12 @@ function CartDrawer({ open, onClose, onLoginRequired }) {
 
       {cartItems.length > 0 && (
         <Box sx={{ p: 2, borderTop: 1, borderColor: "divider" }}>
-          <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={2}
+          >
             <Typography variant="h6" fontWeight="bold">
               Total: ${totalPrice.toFixed(2)}
             </Typography>
@@ -305,7 +347,7 @@ function CartDrawer({ open, onClose, onLoginRequired }) {
         </Box>
       )}
     </Drawer>
-  )
+  );
 }
 
-export default CartDrawer
+export default CartDrawer;

@@ -18,7 +18,7 @@ import {
   alpha,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { keyframes } from "@emotion/react";
 import PetsIcon from "@mui/icons-material/Pets";
 import MenuIcon from "@mui/icons-material/Menu";

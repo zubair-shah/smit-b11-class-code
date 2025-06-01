@@ -33,9 +33,9 @@ import {
   ArrowBack,
 } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { useSnackbar } from "notistack";
-import AdoptedPetContext from "../../context/AdoptedPetContext";
+import AdoptedPetContext from "../context/AdoptedPetContext";
 import Header_2 from "../components/Header_2";
 import Footer from "../components/Footer";
 import CartButton from "../components/CartButton";
@@ -343,7 +343,7 @@ function Enhanced_Details() {
                   "/placeholder.svg?height=500&width=600"
                 }
                 title={pet.name}
-                onClick={() => { }}
+                onClick={() => {}}
               />
 
               {/* Image Thumbnails */}

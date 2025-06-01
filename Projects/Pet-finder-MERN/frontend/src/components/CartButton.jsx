@@ -11,7 +11,7 @@ import {
   alpha,
 } from "@mui/material";
 import { Add, Remove, AddShoppingCart } from "@mui/icons-material";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { useSnackbar } from "notistack";
 
 // Styled components matching your theme

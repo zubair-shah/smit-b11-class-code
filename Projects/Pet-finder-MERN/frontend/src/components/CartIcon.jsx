@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { IconButton, Badge, styled } from "@mui/material"
-import { ShoppingCart } from "@mui/icons-material"
-import { useAuth } from "../../context/AuthContext"
+import { useState, useEffect } from "react";
+import { IconButton, Badge, styled } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
+import { useAuth } from "../context/AuthContext";
 
 const StyledCartButton = styled(IconButton)(({ theme }) => ({
   color: "common.white",
@@ -16,7 +16,7 @@ const StyledCartButton = styled(IconButton)(({ theme }) => ({
     background: "rgba(255, 255, 255, 0.2)",
     transform: "scale(1.05)",
   },
-}))
+}));
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -28,41 +28,42 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     color: theme.palette.common.white,
     fontWeight: "bold",
   },
-}))
+}));
 
 function CartIcon({ onClick }) {
-  const [cartCount, setCartCount] = useState(0)
-  const { auth } = useAuth()
+  const [cartCount, setCartCount] = useState(0);
+  const { auth } = useAuth();
 
   useEffect(() => {
     if (auth?.user) {
-      fetchCartCount()
+      fetchCartCount();
       // Set up polling to update cart count
-      const interval = setInterval(fetchCartCount, 5000)
-      return () => clearInterval(interval)
+      const interval = setInterval(fetchCartCount, 5000);
+      return () => clearInterval(interval);
     } else {
-      setCartCount(0)
+      setCartCount(0);
     }
-  }, [auth?.user])
+  }, [auth?.user]);
 
   const fetchCartCount = async () => {
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/api/cart", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        const totalItems = data.items?.reduce((sum, item) => sum + item.quantity, 0) || 0
-        setCartCount(totalItems)
+        const data = await response.json();
+        const totalItems =
+          data.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+        setCartCount(totalItems);
       }
     } catch (error) {
-      console.error("Error fetching cart count:", error)
+      console.error("Error fetching cart count:", error);
     }
-  }
+  };
 
   return (
     <StyledCartButton onClick={onClick}>
@@ -70,7 +71,7 @@ function CartIcon({ onClick }) {
         <ShoppingCart />
       </StyledBadge>
     </StyledCartButton>
-  )
+  );
 }
 
-export default CartIcon
+export default CartIcon;

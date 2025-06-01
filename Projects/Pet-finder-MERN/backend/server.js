@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bcrypt = require("bcryptjs");
 const router = require("./src/routes/index.js");
 const app = express();
 const port = 4001;
@@ -15,13 +16,40 @@ mongoose
   // .connect(
   //   "mongodb+srv://zubairsaylani:hGo9Cx1NLMvsamrT@cluster0.9yt3l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/MERN_APP"
   // )
-  .then(() => console.log("Connection with mongodb is successful"))
+  .then(() => {
+    console.log("Connection with mongodb is successful");
+    createAdminByDefault();
+  })
   .catch((err) => console.log("err", err));
 
 app.use(router);
 app.get("/", (req, res) => {
   res.status(200).send("Hello World! Server is Running");
 });
+
+async function createAdminByDefault() {
+  const User = require("./src/models/UserSchema.js");
+  try {
+    const adminExist = await User.findOne({ role: "admin" });
+
+    if (!adminExist) {
+      const hashPassword = await bcrypt.hash("admin123", 10);
+      const admin = new User({
+        name: "zubair",
+        email: "zubair@gmail.com",
+        password: hashPassword,
+        role: "admin",
+      });
+
+      await admin.save();
+      console.log("admin Created Successfully");
+      console.log("admin Email: zubair@gmail.com");
+      console.log("admin Password: admin123");
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+}
 
 app.listen(port, () => {
   console.log(`server is listening on port: ${port}`);

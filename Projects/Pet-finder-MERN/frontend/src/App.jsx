@@ -45,11 +45,15 @@ import { SnackbarProvider } from "notistack";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import LoginPage from "./components/LoginPage";
+import AdminLogin from "./pages/Admin/AdminLogin";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminPets from "./pages/Admin/AdminPets";
+import AdminPetsAdd from "./pages/Admin/AdminAddPet";
 import Details from "./pages/Details";
-import Enhanced_Details from "./pages/Enhanced_Details"
+import Enhanced_Details from "./pages/Enhanced_Details";
 // import Checkout from "./pages/Checkout"
-import AdoptedPetContext from "../context/AdoptedPetContext";
-import { AuthProvider } from ".././context/AuthContext";
+import AdoptedPetContext from "./context/AdoptedPetContext";
+import { AuthProvider } from "./context/AuthContext";
 import SignUp from "./components/SignUp";
 import New_Home from "./pages/New_Home";
 // import Home from "./pages/Home";
@@ -134,10 +138,25 @@ const App = () => {
                       <Route path="/" element={<New_Home />} />
                       {/* <Route path="/" element={<Home />} /> */}
                       {/* <Route path="/details/:id" element={<Details />} /> */}
-                      <Route path="/details/:id" element={<Enhanced_Details />} />
+                      <Route
+                        path="/details/:id"
+                        element={<Enhanced_Details />}
+                      />
                       {/* <Route path="/checkout" element={<Checkout />} /> */}
                       <Route path="/login" element={<LoginPage />} />
                       <Route path="/signup" element={<SignUp />} />
+
+                      {/* Admin Routes */}
+                      <Route path="/admin/login" element={<AdminLogin />} />
+                      <Route
+                        path="/admin/dashboard"
+                        element={<AdminDashboard />}
+                      />
+                      <Route path="/admin/pets" element={<AdminPets />} />
+                      <Route
+                        path="/admin/pets/add"
+                        element={<AdminPetsAdd />}
+                      />
                     </Routes>
                   </AuthProvider>
                 </AdoptedPetContext.Provider>
@@ -147,7 +166,7 @@ const App = () => {
         </ThemeProvider>
       </React.StrictMode>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

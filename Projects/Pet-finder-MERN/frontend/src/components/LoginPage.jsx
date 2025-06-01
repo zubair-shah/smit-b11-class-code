@@ -14,7 +14,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { useSnackbar } from "notistack";
 import { Email, Lock, Pets } from "@mui/icons-material";
 
@@ -47,7 +47,10 @@ const theme = createTheme({
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   borderRadius: theme.shape.borderRadius * 2,
-  background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.95)} 0%, ${alpha(theme.palette.background.default, 0.95)} 100%)`,
+  background: `linear-gradient(135deg, ${alpha(
+    theme.palette.background.paper,
+    0.95
+  )} 0%, ${alpha(theme.palette.background.default, 0.95)} 100%)`,
   backdropFilter: "blur(20px)",
   border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
   boxShadow: "0 8px 32px rgba(74, 111, 165, 0.15)",
@@ -93,7 +96,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("/auth/login", {
+      const response = await axios.post("/api/auth/login", {
         email,
         password,
       });
@@ -118,7 +121,8 @@ const LoginPage = () => {
       <Box
         sx={{
           minHeight: "100vh",
-          background: "url(http://pets-images.dev-apis.com/pets/wallpaperA.jpg)",
+          background:
+            "url(http://pets-images.dev-apis.com/pets/wallpaperA.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           display: "flex",
@@ -209,7 +213,11 @@ const LoginPage = () => {
                 disabled={loading}
                 sx={{ mb: 2 }}
               >
-                {loading ? <CircularProgress size={24} color="inherit" /> : "Sign In"}
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  "Sign In"
+                )}
               </GradientButton>
 
               <Box sx={{ textAlign: "center" }}>

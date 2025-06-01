@@ -20,7 +20,7 @@ import useBreedList from "../hooks/useBreedList";
 import Results_2 from "./Results_2";
 import fetchSearch from "../helper/fetchSearch";
 import { apiUrl } from "../config/apiUrl";
-import AdoptedPetContext from "../../context/AdoptedPetContext";
+import AdoptedPetContext from "../context/AdoptedPetContext";
 import PetsIcon from "@mui/icons-material/Pets";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchIcon from "@mui/icons-material/Search";
