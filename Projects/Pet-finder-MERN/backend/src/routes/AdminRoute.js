@@ -1,6 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const Pet = require("../models/Pets");
+const multer = require("multer");
+const path = require("path");
+const { protect } = require("../middleware/authMiddleware");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/pets/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    console.log("uniqueSuffix", uniqueSuffix);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
+  },
+});
+
+const upload = multer({ storage });
 
 // Get all pets for admin (with full details)
 router.get("/pets", async (req, res) => {
@@ -67,21 +84,22 @@ router.get("/pets", async (req, res) => {
 });
 
 // Create new pet
-router.post("/pets", async (req, res) => {
-  console.log("user", req.user);
+router.post("/pets", protect, upload.array("images"), async (req, res) => {
+  console.log("req.userId:", req.userId); // e.g. name, description
+  console.log("Text fields:", req.body); // e.g. name, description
+  console.log("Uploaded file:", req.file); // multer gives you file info
   try {
     const petData = {
       ...req.body,
-      //   addedBy: req.user.userId,
+      addedBy: req.userId,
       animal: req.body.animal?.toLowerCase(),
       state: req.body.state?.toUpperCase(),
+      images: req.files?.map(
+        (file) => `http://localhost:4001/uploads/pets/${file.filename}`
+      ),
     };
 
-    // Handle uploaded images
-    // if (req.files && req.files.length > 0) {
-    //   petData.images = req.files.map((file) => `http://localhost:5000/uploads/pets/${file.filename}`)
-    // }
-
+    console.log("petData.images", petData.images);
     const pet = new Pet(petData);
     await pet.save();
 

@@ -6,9 +6,10 @@ const router = require("./src/routes/index.js");
 const app = express();
 const port = 4001;
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use("/uploads", express.static("uploads"));
 // parse json
-app.use(express.json());
 
 app.use(cors("*"));
 mongoose

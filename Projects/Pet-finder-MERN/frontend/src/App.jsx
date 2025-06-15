@@ -129,6 +129,7 @@ const App = () => {
               vertical: "bottom",
               horizontal: "right",
             }}
+            autoHideDuration={1000}
           >
             <BrowserRouter>
               <QueryClientProvider client={queryClient}>
