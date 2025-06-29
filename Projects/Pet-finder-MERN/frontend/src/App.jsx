@@ -158,6 +158,7 @@ const App = () => {
                         path="/admin/pets/add"
                         element={<AdminPetsAdd />}
                       />
+                      <Route path="*" element={<LoginPage />} />
                     </Routes>
                   </AuthProvider>
                 </AdoptedPetContext.Provider>

@@ -5,7 +5,7 @@ async function fetchSearch({ queryKey }) {
   //     `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
   // );
   const res = await fetch(
-    `http://localhost:4001/api/admin/pets?animal=${animal}&location=${location}&breed=${breed}`
+    `http://localhost:4001/api/pets?animal=${animal}&location=${location}&breed=${breed}`
   );
 
   if (!res.ok)

@@ -19,8 +19,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Get all pets for admin (with full details)
-router.get("/pets", async (req, res) => {
+// Get all pets for users (with full details)
+router.get("/", async (req, res) => {
   try {
     const { page = 1, limit = 10, search, animal, status } = req.query;
 
@@ -77,6 +77,20 @@ router.get("/pets", async (req, res) => {
       currentPage: page,
       total,
     });
+  } catch (error) {
+    console.error("Get pets error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const pet = await Pet.findById(req.params.id);
+    if (!pet) {
+      res.status(404).json({ message: "Pet not Found" });
+    }
+
+    res.json(pet.toAPIResponse());
   } catch (error) {
     console.error("Get pets error:", error);
     res.status(500).json({ message: "Server error" });

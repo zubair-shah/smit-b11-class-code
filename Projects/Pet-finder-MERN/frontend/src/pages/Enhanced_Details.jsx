@@ -128,15 +128,15 @@ const BackButton = styled(Button)(({ theme }) => ({
 const fetchPetDetails = async ({ queryKey }) => {
   const [, petId] = queryKey;
   try {
-    const response = await fetch(
-      `https://pets-v2.dev-apis.com/pets?id=${petId}`
-    );
+    const response = await fetch(`http://localhost:4001/api/pets/${petId}`);
+    // /api/pets/684eb7ebfa38403c8086302b
     if (!response.ok) {
       throw new Error("Pet not found");
     }
     const data = await response.json();
     console.log("Fetched pet data:", data);
-    return data.pets[0];
+    // return data.pets[0];
+    return data;
   } catch (error) {
     // Fallback mock data if API fails
     return {
